@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { User } from 'src/user/entity/user.entity';
 import { AuthService } from './auth.service';
 import { loginDto } from './dto/login.dto';
@@ -8,7 +8,7 @@ import { registrationDto } from './dto/registration.dto';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Post()
+  @Post('/registration')
   regitration(@Body() body: registrationDto): Promise<User> {
     return this.authService.registration(body);
   }
@@ -18,4 +18,8 @@ export class AuthController {
     return this.authService.login(body);
   }
 
+  @Get('/confirm')
+  confirm(@Query() query) {
+    return this.authService.confirm(query);
+  }
 }

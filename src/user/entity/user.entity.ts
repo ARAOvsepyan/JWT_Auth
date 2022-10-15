@@ -20,6 +20,9 @@ export class User {
   @Length(8, 20)
   password: string;
 
+  @Column({ default: false })
+  confirmed: boolean;
+
   @BeforeInsert()
   async hashPassword() {
     this.password = await bcrypt.hash(this.password, 10);
